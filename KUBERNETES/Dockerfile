@@ -16,4 +16,4 @@ RUN cp -rvf photogenic/* .
 RUN rm -rf photogenic.zip photogenic
 
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
-EXPOSE 80 22
+EXPOSE 80 
