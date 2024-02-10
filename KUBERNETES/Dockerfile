@@ -1,6 +1,9 @@
 FROM centos:latest
 MAINTAINER harideeptulasiaws@gmail.com
 
+RUN yum clean all
+RUN yum makecache
+
 # Install required packages
 RUN yum install -y httpd zip unzip && \
     yum clean all
