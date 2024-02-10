@@ -1,20 +1,19 @@
 FROM centos:latest
 MAINTAINER harideeptulasiaws@gmail.com
 
-RUN yum clean all
-RUN yum makecache
+# Clean yum cache, update metadata, and specify a different mirror for 'appstream'
+RUN yum clean all \
+    && yum makecache \
+    && sed -i 's/mirrorlist=/#mirrorlist=/g' /etc/yum.repos.d/CentOS-AppStream.repo \
+    && sed -i 's/#baseurl=/baseurl=/g' /etc/yum.repos.d/CentOS-AppStream.repo \
+    && sed -i 's/mirror.centos.org/your-preferred-mirror/g' /etc/yum.repos.d/CentOS-AppStream.repo \
+    && yum install -y httpd zip unzip
 
-# Install required packages
-RUN yum install -y httpd zip unzip && \
-    yum clean all
-
-# Download and extract website content
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page254/photogenic.zip /var/www/html/
+ADD https://www.free-css.com/assets/files/free-css-templates/download/page254/photogenic.zip /var/www/html
 WORKDIR /var/www/html/
-RUN unzip photogenic.zip && \
-    cp -rvf photogenic/* . && \
-    rm -rf photogenic.zip photogenic
+RUN unzip photogenic.zip
+RUN cp -rvf photogenic/* .
+RUN rm -rf photogenic.zip photogenic
 
-# Configure Apache and expose ports
 CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 EXPOSE 80 22
