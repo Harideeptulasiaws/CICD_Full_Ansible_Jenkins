@@ -1,12 +1,14 @@
 FROM centos:latest
 MAINTAINER harideeptulasiaws@gmail.com
 
+
 # Clean yum cache, update metadata, and exclude 'appstream' repository
 RUN yum clean all \
     && yum makecache \
-    && sed -i 's/mirrorlist=/#mirrorlist=/g' /etc/yum.repos.d/CentOS-AppStream.repo \
-    && sed -i 's/#baseurl=/baseurl=http:\/\/mirror.centos.org\/centos\/$releasever\/AppStream\//g' /etc/yum.repos.d/CentOS-AppStream.repo \
-    && yum install -y --disablerepo=appstream httpd zip unzip
+RUN cd /etc/yum.repos.d/
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+RUN yum install -y httpd zip unzip
 
 ADD https://www.free-css.com/assets/files/free-css-templates/download/page254/photogenic.zip /var/www/html
 WORKDIR /var/www/html/
