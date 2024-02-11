@@ -1,0 +1,20 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: haritul
+spec:
+  replicas: 2
+  selector:
+   matchLables:
+    app: pipelineapp
+  template:
+    metadata:
+      labels:
+        app: pipelineapp
+    spec:
+     containers:
+      - name: haritul
+        image: haritul/tipeline1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
