@@ -6,6 +6,12 @@
    #- name: delete old Service
     # command: kubectl delete -f /home/ubuntu/Serivce.yml
     - name: create new Deployment
-      ansible.builtin.command: kubectl --kubeconfig=/home/ubuntu/.kube/config.yml apply -f /home/ubuntu/Deployment.yml
+      command: kubectl --kubeconfig=/home/ubuntu/.kube/config.yml apply -f /home/ubuntu/Deployment.yml
     - name: create new Service
-      ansible.builtin.command: kubectl --kubeconfig=/home/ubuntu/.kube/config.yml apply -f /home/ubuntu/Service.yml
+      command: kubectl --kubeconfig=/home/ubuntu/.kube/config.yml apply -f /home/ubuntu/Service.yml
+    - name: Debugging information
+      debug:
+       var: item
+      loop:
+        - "{{ ansible_env }}"
+        - "/home/ubuntu/.kube/config.yml"
