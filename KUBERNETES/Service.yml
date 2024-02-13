@@ -1,14 +1,15 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
    name: haritul
    labels:
      app: pipelineapp
 spec:
+ type: LoadBalancer
  ports:
    - port: 8080
      targetPort: 80
      nodePort: 31200
-selector:
+ selector:
    app: pipelineapp
-   type: LoadBalancer
+   
