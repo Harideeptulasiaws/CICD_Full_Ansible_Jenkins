@@ -9,10 +9,4 @@
       command: kubectl --kubeconfig=/home/ubuntu/.kube/config apply -f /home/ubuntu/Deployment.yml
     - name: create new Service
       command: kubectl --kubeconfig=/home/ubuntu/.kube/config apply -f /home/ubuntu/Service.yml
-    - name: Debugging information
-      debug:
-       var: item
-      loop:
-        - "{{ ansible_env }}"
-        - "/home/ubuntu/.kube/config.yml"
-        - "{{ lookup('file', '/home/ubuntu/.kube/config.yml') }}"
+    
